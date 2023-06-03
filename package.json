@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@types/node": "20.2.5",
     "autoprefixer": "10.4.14",
     "clsx": "^1.2.1",
