@@ -1,6 +1,6 @@
 import EmptyState from '../components/EmptyState';
 
-const Users = () => {
+const People = () => {
   return (
     <div
       className='
@@ -14,4 +14,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default People;

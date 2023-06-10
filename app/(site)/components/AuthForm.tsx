@@ -1,15 +1,16 @@
 'use client';
 
 import axios from 'axios';
-import { useCallback, useEffect, useState } from 'react';
-import { FieldValues, useForm, SubmitHandler } from 'react-hook-form';
-import { BsGithub, BsGoogle } from 'react-icons/bs';
-import Input from '@/app/components/Inputs/Input';
-import Button from '@/app/components/Button';
-import AuthSocialButton from './AuthSocialButton';
-import { toast } from 'react-hot-toast';
 import { signIn, useSession } from 'next-auth/react';
+import { useCallback, useEffect, useState } from 'react';
+import { BsGithub, BsGoogle } from 'react-icons/bs';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+
+import Input from '@/app/components/inputs/Input';
+import AuthSocialButton from './AuthSocialButton';
+import Button from '@/app/components/Button';
+import { toast } from 'react-hot-toast';
 
 type Variant = 'LOGIN' | 'REGISTER';
 
@@ -21,7 +22,7 @@ const AuthForm = () => {
 
   useEffect(() => {
     if (session?.status === 'authenticated') {
-      router.push('/users');
+      router.push('/conversations');
     }
   }, [session?.status, router]);
 
@@ -50,12 +51,25 @@ const AuthForm = () => {
     if (variant === 'REGISTER') {
       axios
         .post('/api/register', data)
-        .then(() => {
-          signIn('credentials', data);
+        .then(() =>
+          signIn('credentials', {
+            ...data,
+            redirect: false,
+          })
+        )
+        .then((callback) => {
+          if (callback?.error) {
+            toast.error('Invalid credentials!');
+          }
+
+          if (callback?.ok) {
+            router.push('/conversations');
+          }
         })
-        .catch(() => toast.error('something went wrong!'))
+        .catch(() => toast.error('Something went wrong!'))
         .finally(() => setIsLoading(false));
     }
+
     if (variant === 'LOGIN') {
       signIn('credentials', {
         ...data,
@@ -63,34 +77,31 @@ const AuthForm = () => {
       })
         .then((callback) => {
           if (callback?.error) {
-            toast.error('Invalid credentials');
+            toast.error('Invalid credentials!');
           }
-          if (callback?.ok && !callback?.error) {
-            toast.success('Logged in successfully');
-            router.push('/users');
+
+          if (callback?.ok) {
+            router.push('/conversations');
           }
         })
-        .finally(() => {
-          setIsLoading(false);
-        });
+        .finally(() => setIsLoading(false));
     }
   };
 
   const socialAction = (action: string) => {
     setIsLoading(true);
-    // NextAuth Social Sign In
+
     signIn(action, { redirect: false })
       .then((callback) => {
         if (callback?.error) {
-          toast.error('Invalid credentials');
+          toast.error('Invalid credentials!');
         }
-        if (callback?.ok && !callback?.error) {
-          toast.success('Logged in successfully');
+
+        if (callback?.ok) {
+          router.push('/conversations');
         }
       })
-      .finally(() => {
-        setIsLoading(false);
-      });
+      .finally(() => setIsLoading(false));
   };
   return (
     <div
@@ -113,28 +124,31 @@ const AuthForm = () => {
         <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
             <Input
-              id='name'
-              label='Name'
+              disabled={isLoading}
               register={register}
               errors={errors}
-              disabled={isLoading}
+              required
+              id='name'
+              label='Name'
             />
           )}
           <Input
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
             id='email'
             label='Email address'
             type='email'
-            register={register}
-            errors={errors}
-            disabled={isLoading}
           />
           <Input
+            disabled={isLoading}
+            register={register}
+            errors={errors}
+            required
             id='password'
             label='Password'
             type='password'
-            register={register}
-            errors={errors}
-            disabled={isLoading}
           />
           <div>
             <Button disabled={isLoading} fullWidth type='submit'>
@@ -142,6 +156,7 @@ const AuthForm = () => {
             </Button>
           </div>
         </form>
+
         <div className='mt-6'>
           <div className='relative'>
             <div
@@ -163,15 +178,11 @@ const AuthForm = () => {
           <div className='mt-6 flex gap-2'>
             <AuthSocialButton
               icon={BsGithub}
-              onClick={() => {
-                socialAction('github');
-              }}
+              onClick={() => socialAction('github')}
             />
             <AuthSocialButton
               icon={BsGoogle}
-              onClick={() => {
-                socialAction('google');
-              }}
+              onClick={() => socialAction('google')}
             />
           </div>
         </div>
