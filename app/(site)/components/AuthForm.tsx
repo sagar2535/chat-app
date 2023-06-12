@@ -45,6 +45,7 @@ const AuthForm = () => {
       password: '',
     },
   });
+
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
@@ -61,8 +62,8 @@ const AuthForm = () => {
           if (callback?.error) {
             toast.error('Invalid credentials!');
           }
-
-          if (callback?.ok) {
+          if (callback?.ok && !callback?.error) {
+            toast.success('Login successful!');
             router.push('/conversations');
           }
         })
@@ -81,6 +82,7 @@ const AuthForm = () => {
           }
 
           if (callback?.ok) {
+            toast.success('Login successful!');
             router.push('/conversations');
           }
         })
@@ -103,23 +105,18 @@ const AuthForm = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
   return (
-    <div
-      className='
-    mt-8
-    sm:mx-auto
-    sm:w-full
-    sm:max-w-md 
-    '
-    >
+    <div className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'>
       <div
         className='
-      bg-white
-      px-4
-      py-8
-      shadow
-      sm:rounded-lg
-      sm:px-10'
+        bg-white
+          px-4
+          py-8
+          shadow
+          sm:rounded-lg
+          sm:px-10
+        '
       >
         <form className='space-y-6' onSubmit={handleSubmit(onSubmit)}>
           {variant === 'REGISTER' && (
@@ -161,10 +158,10 @@ const AuthForm = () => {
           <div className='relative'>
             <div
               className='
-              absolute
-              inset-0
-              flex 
-              items-center
+                absolute 
+                inset-0 
+                flex 
+                items-center
               '
             >
               <div className='w-full border-t border-gray-300' />
@@ -175,6 +172,7 @@ const AuthForm = () => {
               </span>
             </div>
           </div>
+
           <div className='mt-6 flex gap-2'>
             <AuthSocialButton
               icon={BsGithub}
@@ -188,26 +186,21 @@ const AuthForm = () => {
         </div>
         <div
           className='
-          flex
-          gap-2
-          justify-center
-          text-sm
-          mt-6
-          px-2
-          text-gray-500
-        '
+            flex 
+            gap-2 
+            justify-center 
+            text-sm 
+            mt-6 
+            px-2 
+            text-gray-500
+          '
         >
           <div>
             {variant === 'LOGIN'
               ? 'New to Messenger?'
               : 'Already have an account?'}
           </div>
-          <div
-            onClick={toggleVariant}
-            className='
-            underline
-             cursor-pointer'
-          >
+          <div onClick={toggleVariant} className='underline cursor-pointer'>
             {variant === 'LOGIN' ? 'Create an account' : 'Login'}
           </div>
         </div>
