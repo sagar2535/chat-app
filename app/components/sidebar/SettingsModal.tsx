@@ -114,7 +114,7 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                     height='48'
                     className='rounded-full'
                     src={
-                      image || currentUser?.image || 'images/placeholder.jpg/'
+                      image || currentUser?.image || '/images/placeholder.jpg/'
                     }
                     alt='Avatar'
                   />
