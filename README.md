@@ -1,13 +1,10 @@
 # Real-Time Messenger Clone: Next.js 13, React, Tailwind, Prisma, MongoDB, NextAuth, Pusher (2023)
 
-![Copy of Copy of Fullstack Twitter Clone (1)](https://user-images.githubusercontent.com/23248726/236631198-90414da5-ee43-46a9-8898-70b003bcd83d.png)
-
+(https://user-images.githubusercontent.com/23248726/236631198-90414da5-ee43-46a9-8898-70b003bcd83d.png)
 
 This is a repository for a Real-Time Messenger Clone: Next.js 13, React, Tailwind, Prisma, MongoDB, NextAuth, Pusher.
 
-[VIDEO TUTORIAL](https://www.youtube.com/watch?v=PGPGcKBpAk8)
-
-Master the art of building a real-time Messenger clone using the latest web development technologies. In this comprehensive tutorial, we'll walk you through the process of creating a fully-functional and visually stunning chat application that rivals the best in the industry.
+Master the art of building a real-time Messenger clone using the latest web development technologies.
 
 Key Features:
 
@@ -32,9 +29,6 @@ Key Features:
 - Handling relations between Server and Child components in a real-time environment
 - Creating and managing chat rooms and channels
 
-Whether you're an experienced developer looking to expand your skillset or a beginner eager to learn the latest web development technologies, this tutorial has something for everyone. Join us on this exciting journey and take your web development skills to new heights!
-
-
 ### Prerequisites
 
 **Node version 14.x**
@@ -42,7 +36,7 @@ Whether you're an experienced developer looking to expand your skillset or a beg
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next13-messenger.git
+git clone https://github.com/sagar2535/chat-app.git
 ```
 
 ### Install packages
@@ -52,7 +46,6 @@ npm i
 ```
 
 ### Setup .env file
-
 
 ```js
 DATABASE_URL=
@@ -88,6 +81,6 @@ npm run dev
 
 Running commands with npm `npm run [command]`
 
-| command         | description                              |
-| :-------------- | :--------------------------------------- |
-| `dev`           | Starts a development instance of the app |
+| command | description                              |
+| :------ | :--------------------------------------- |
+| `dev`   | Starts a development instance of the app |
