@@ -2,7 +2,7 @@
 
 This is a repository for a Real-Time Messenger Clone: Next.js 13, React, Tailwind, Prisma, MongoDB, NextAuth, Pusher.
 
-### Visit https://chat-app-git-sagardev-sagarkumar2535-gmailcom.vercel.app/
+### Visit https://chat-app-sagar-kr.vercel.app
 
 Master the art of building a real-time Messenger clone using the latest web development technologies.
 
