@@ -17,9 +17,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthContext>
-          <ToasterContext />
           <ActiveStatus />
           {children}
+          <ToasterContext />
         </AuthContext>
       </body>
     </html>
